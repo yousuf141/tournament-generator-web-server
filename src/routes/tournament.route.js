@@ -10,14 +10,20 @@ router.get("/", async (req, res) => {
   res.status(200).json(tournaments);
 });
 
-router.get("/:id", (req, res) => {
-  res.status(201).send("Get One");
+router.get("/:id", async (req, res) => {
+  if (mongoose.isValidObjectId(req.params.id) == false) {
+    res.status(200).json(null);
+    return;
+  }
+
+  const tournament = await Tournament.findById(req.params.id).exec();
+  res.status(201).send(tournament);
 });
 
 // saves
 router.post("/", async (req, res) => {
-  await Tournament.create(req.body.tournament);
-  res.status(200).send();
+  const createdTournament = await Tournament.create(req.body.tournament);
+  res.status(200).send(createdTournament);
 });
 
 // updates

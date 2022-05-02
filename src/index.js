@@ -1,3 +1,16 @@
+/*
+TODO: 
+
+1. get id of saved tournament to web app
+2. redirect web app to final result endpoint
+
+// On final result page load
+
+1. check to see if schedule has already been created
+2. if created, display existing schedule, else generate new schedule
+
+*/
+
 // general imports
 const fs = require("fs");
 const join = require("path").join;
@@ -15,10 +28,12 @@ const mongoose = require("mongoose");
 const models = join(__dirname, "./models");
 
 require("./models/tournament.model");
+require("./models/schedule.model");
 require("./models/randomName.model");
 
 // import routes
 const tournamentRoute = require("./routes/tournament.route");
+const scheduleRoute = require("./routes/schedule.route");
 const randomNameRoute = require("./routes/randomName.route");
 
 // set up mongodb
@@ -40,6 +55,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/tournament", tournamentRoute);
+app.use("/schedule", scheduleRoute);
 app.use("/random-name", randomNameRoute);
 
 app.post("/", (req, res) => {
