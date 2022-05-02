@@ -1,20 +1,9 @@
-/*
-TODO: 
-
-1. get id of saved tournament to web app
-2. redirect web app to final result endpoint
-
-// On final result page load
-
-1. check to see if schedule has already been created
-2. if created, display existing schedule, else generate new schedule
-
-*/
-
 // general imports
 const fs = require("fs");
 const join = require("path").join;
 const config = require("./config");
+
+const port = process.env.PORT || 3000;
 
 // express
 var express = require("express");
@@ -65,5 +54,5 @@ app.post("/", (req, res) => {
 });
 
 function listen() {
-  app.listen(3000, () => console.log(`Listening on port: ${3000}...`));
+  app.listen(port, () => console.log(`Listening on port: ${port}...`));
 }
